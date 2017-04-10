@@ -36,7 +36,11 @@ public class RpcClientProxy<T> {
                             //BIO同步阻塞等待服务器返回应答
                             inputStream = new ObjectInputStream(socket.getInputStream());
                             return inputStream.readObject();
-                        } finally {
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return null;
+                        }
+                        finally {
                             if(socket != null) socket.close();
                             if(inputStream != null) inputStream.close();
                             if(outputStream != null) outputStream.close();
